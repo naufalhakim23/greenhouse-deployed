@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MainDashboard from './Pages/Index';
 // require('dotenv').config();
 // console.log(process.env)

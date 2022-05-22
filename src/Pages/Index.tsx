@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AppShell, useMantineTheme, Grid, Skeleton } from '@mantine/core'
 import { HeaderSearch } from "../components/Header";
 import { NavbarMinimal } from "../components/Navbar";
@@ -7,7 +7,7 @@ import CardGraph from "../components/Graph";
 
 
 import { db } from "../Firebase/Firebase";
-import { ref, onValue, onChildAdded, limitToLast, query } from 'firebase/database'
+import { ref, onValue, limitToLast, query } from 'firebase/database'
 
 // let dataHumidity = 0
 // var dataRealTimeHumidityPath = 'node/interface/roomHumidity';
@@ -41,7 +41,7 @@ function MainDashboard() {
         week: 0,
     });
 
-    const [twentyDataFromLast, setTwentyDataFromLast] = useState([]);
+    // const [twentyDataFromLast, setTwentyDataFromLast] = useState([]);
 
     const theme = useMantineTheme();
     // const [opened, setOpened] = useState(false);
@@ -69,20 +69,20 @@ function MainDashboard() {
         return "Last update: " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + "GMT+7";
     }
     // belom di handle
-    const getDataForGraph20 = () => {
-        const dataRTDB = ref(db, 'node/database/')
-        const lastDataRTDBtoTwenty = query(dataRTDB, limitToLast(20))
-        onValue(lastDataRTDBtoTwenty, (snapshot) => {
-            const data = snapshot.val()
+    // const getDataForGraph20 = () => {
+    //     const dataRTDB = ref(db, 'node/database/')
+    //     const lastDataRTDBtoTwenty = query(dataRTDB, limitToLast(20))
+    //     onValue(lastDataRTDBtoTwenty, (snapshot) => {
+    //         const data = snapshot.val()
 
-            setTwentyDataFromLast(data)
-        }
-        )
-    }
+    //         setTwentyDataFromLast(data)
+    //     }
+    //     )
+    // }
     useEffect(() => {
         getDataInterfaceFirebase();
         getDataComparator();
-        getDataForGraph20()
+        // getDataForGraph20()
     }, [])
     return (
         <>

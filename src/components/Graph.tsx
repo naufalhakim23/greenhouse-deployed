@@ -70,11 +70,11 @@ const graphOptions = {
     }
 }
 function CardGraph() {
-    const theme = useMantineTheme();
+    // const theme = useMantineTheme();
 
-    const secondaryColor = theme.colorScheme === 'dark'
-        ? theme.colors.dark[1]
-        : theme.colors.gray[7];
+    // // const secondaryColor = theme.colorScheme === 'dark'
+    // //     ? theme.colors.dark[1]
+    // //     : theme.colors.gray[7];
     return (
         <Card>
             <Line data={Data} options={graphOptions} />
