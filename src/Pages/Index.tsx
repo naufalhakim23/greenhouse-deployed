@@ -116,9 +116,9 @@ function MainDashboard() {
                     }
                 ]} />}
             >
-                <pre>{JSON.stringify(dataInterface)} test</pre>
+                {/* <pre>{JSON.stringify(dataInterface)} test</pre>
                 <pre>{JSON.stringify(dataComparator)} test</pre>
-                <pre>{JSON.stringify(twentyDataFromLast)}</pre>
+                <pre>{JSON.stringify(twentyDataFromLast)}</pre> */}
                 <StatsGrid data={[
                     {
                         "title": "Plant 1 Soil Moisture Percentage",
