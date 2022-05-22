@@ -28,6 +28,7 @@ function MainDashboard() {
         roomTemperature: 0,
         status: 0,
         week: 0,
+        Ts: 0,
     });
     const [dataComparator, setDataComparator] = useState({
         bitSoilSensor1: 0,
@@ -39,6 +40,8 @@ function MainDashboard() {
         status: 0,
         week: 0,
     });
+
+    const [twentyDataFromLast, setTwentyDataFromLast] = useState([]);
 
     const theme = useMantineTheme();
     // const [opened, setOpened] = useState(false);
@@ -61,20 +64,25 @@ function MainDashboard() {
         )
 
     }
+    const convertTimeStamp = () => {
+        const date = new Date(dataInterface.Ts);
+        return "Last update: " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + "GMT+7";
+    }
     // belom di handle
     const getDataForGraph20 = () => {
         const dataRTDB = ref(db, 'node/database/')
-        const lastDataRTDB = query(dataRTDB, limitToLast(20))
-        onChildAdded(lastDataRTDB, (snapshot) => {
+        const lastDataRTDBtoTwenty = query(dataRTDB, limitToLast(20))
+        onValue(lastDataRTDBtoTwenty, (snapshot) => {
             const data = snapshot.val()
-            setDataComparator(data)
+
+            setTwentyDataFromLast(data)
         }
         )
     }
     useEffect(() => {
         getDataInterfaceFirebase();
-        console.log(dataInterface);
         getDataComparator();
+        getDataForGraph20()
     }, [])
     return (
         <>
@@ -110,6 +118,7 @@ function MainDashboard() {
             >
                 <pre>{JSON.stringify(dataInterface)} test</pre>
                 <pre>{JSON.stringify(dataComparator)} test</pre>
+                <pre>{JSON.stringify(twentyDataFromLast)}</pre>
                 <StatsGrid data={[
                     {
                         "title": "Plant 1 Soil Moisture Percentage",
@@ -152,6 +161,12 @@ function MainDashboard() {
                         "icon": "temperature",
                         "value": `${dataInterface.week}`,
                         "diff": parseInt(`${dataComparator.week}`) - parseInt(`${dataInterface.week}`),
+                    },
+                    {
+                        "title": "Time Last Retrieve",
+                        "icon": "temperature",
+                        "value": `${convertTimeStamp()}`,
+                        "diff": 0,
                     },
                 ]} />
                 <Grid>
