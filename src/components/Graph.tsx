@@ -1,4 +1,4 @@
-import { Card, useMantineTheme } from "@mantine/core";
+import { Card } from "@mantine/core";
 import {
     Chart as ChartJS,
     CategoryScale,

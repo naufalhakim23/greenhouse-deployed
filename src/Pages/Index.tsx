@@ -66,7 +66,8 @@ function MainDashboard() {
     }
     const convertTimeStamp = () => {
         const date = new Date(dataInterface.Ts);
-        return "Last update: " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " + "GMT+7";
+        const output = `Last update: ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} GMT+7`;
+        return output;
     }
     // belom di handle
     // const getDataForGraph20 = () => {
