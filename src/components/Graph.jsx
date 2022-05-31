@@ -47,16 +47,7 @@ const colors = {
     transparent: "transparent",
 
 }
-const Data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-        data: [65, 59, 80, 81, 56, 55, 40],
-        tension: 0.4,
-        borderWidth: 4,
-        borderColor: colors.theme["primary"],
-        backgroundColor: colors.transparent,
-    }],
-}
+
 const graphOptions = {
     responsive: true,
     maintainAspectRatio: true,
@@ -69,12 +60,37 @@ const graphOptions = {
         intersect: false,
     }
 }
-function CardGraph() {
+function CardGraph(
+    {
+        dataFromDatabase,
+        dataTimestamp,
+    }
+) {
     // const theme = useMantineTheme();
 
     // // const secondaryColor = theme.colorScheme === 'dark'
     // //     ? theme.colors.dark[1]
     // //     : theme.colors.gray[7];
+    // changing timestamp to hours and minutes from timestamp list
+    const dataTimestampHour = dataTimestamp?.map((item) => {
+        const date = new Date(item);
+        const hours = date.getHours();
+        const minutes = "0" + date.getMinutes();
+        const seconds = "0" + date.getSeconds();
+        const formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        return formattedTime;
+    })
+
+    const Data = {
+        labels: dataTimestampHour,
+        datasets: [{
+            data: dataFromDatabase,
+            tension: 0.4,
+            borderWidth: 4,
+            borderColor: colors.theme["primary"],
+            backgroundColor: colors.transparent,
+        }],
+    }
     return (
         <Card>
             <Line data={Data} options={graphOptions} />
