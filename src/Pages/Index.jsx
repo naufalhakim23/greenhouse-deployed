@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AppShell, useMantineTheme, Grid, Skeleton } from '@mantine/core'
+import { AppShell, useMantineTheme, Grid } from '@mantine/core'
 import { HeaderSearch } from "../components/Header";
 import { NavbarMinimal } from "../components/Navbar";
 import { StatsGrid } from "../components/Status";
@@ -8,15 +8,6 @@ import CardGraph from "../components/Graph";
 
 import { db } from "../Firebase/Firebase";
 import { ref, onValue, limitToLast, query } from 'firebase/database'
-
-// let dataHumidity = 0
-// var dataRealTimeHumidityPath = 'node/interface/roomHumidity';
-// const dataRealTimeHumidity = ref(db, dataRealTimeHumidityPath);
-// onValue(dataRealTimeHumidity, (snapshot) => {
-//     dataHumidity = snapshot.val();
-//     console.log(dataHumidity);
-// });
-// console.log(dataHumidity);
 
 function MainDashboard() {
     const [dataInterface, setDataInterface] = useState({
@@ -48,8 +39,6 @@ function MainDashboard() {
     const [twentyPercentageSoilSensor2, setTwentyPercentageSoilSensor2] = useState(null);
 
     const theme = useMantineTheme();
-    // const [opened, setOpened] = useState(false);
-    const child = <Skeleton height={140} radius="md" animate={false} />;
 
     const getDataInterfaceFirebase = () => {
         const dataRTDB = ref(db, 'node/interface/');
