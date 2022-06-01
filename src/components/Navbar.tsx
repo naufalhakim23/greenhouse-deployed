@@ -81,10 +81,7 @@ export function NavbarMinimal() {
 
     return (
         <Navbar height={750} width={{ base: 80 }} p="md">
-            <Center>
-                {/* <MantineLogoSmall /> */}
-            </Center>
-            <Navbar.Section grow mt={50}>
+            <Navbar.Section mt={30} mb={100}>
                 <Group direction="column" align="center" spacing={0}>
                     {links}
                 </Group>

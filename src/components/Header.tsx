@@ -45,42 +45,29 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-interface HeaderSearchProps {
-    links: { link: string; label: string }[];
-}
 
-export function HeaderSearch({ links }: HeaderSearchProps) {
+
+export function HeaderSearch() {
     const [opened, toggleOpened] = useBooleanToggle(false);
     const { classes } = useStyles();
 
-    const items = links.map((link) => (
-        <a
-            key={link.label}
-            href={link.link}
-            className={classes.link}
-            onClick={(event) => event.preventDefault()}
-        >
-            {link.label}
-        </a>
-    ));
-
+    // if burger is clicked toggle the opened state and render navbar
+    // const navbar = opened ? <NavbarMinimal /> : toggleOpened(false);
     return (
         <Header height={60} className={classes.header} mb={50}>
             <div className={classes.inner}>
                 <Group>
-                    <Burger opened={opened} onClick={() => toggleOpened()} size="sm" />
+                    <Burger opened={opened} onClick={() => {
+                        toggleOpened()
+                    }} size="sm" />
                     <MantineLogo />
                 </Group>
-
                 <Group>
-                    <Group ml={50} spacing={5} className={classes.links}>
-                        {items}
-                    </Group>
                     <Autocomplete
                         className={classes.search}
                         placeholder="Search"
                         icon={<Search size={16} />}
-                        data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
+                        data={['React', 'Angular', 'Vue', 'Next.js', 'Svelte', 'Blitz.js']}
                     />
                 </Group>
             </div>

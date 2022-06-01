@@ -115,25 +115,11 @@ function MainDashboard() {
                 navbarOffsetBreakpoint="sm"
                 asideOffsetBreakpoint="sm"
                 fixed
-                navbar={<NavbarMinimal />}
-                header={<HeaderSearch links={[
-                    {
-                        "link": "/about",
-                        "label": "Features"
-                    },
-                    {
-                        "link": "/pricing",
-                        "label": "Pricing"
-                    },
-                    {
-                        "link": "/learn",
-                        "label": "Learn"
-                    },
-                    {
-                        "link": "/community",
-                        "label": "Community"
-                    }
-                ]} />}
+                navbar={
+                    
+                    <NavbarMinimal />
+                }
+                header={<HeaderSearch />}
             >
                 <StatsGrid data={[
                     {
