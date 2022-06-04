@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Group } from '@mantine/core';
+import { useState } from 'react';
+import { Navbar, Tooltip, UnstyledButton, createStyles, Group } from '@mantine/core';
 import {
     Icon as TablerIcon,
     Home2,
-    Gauge,
     DeviceDesktopAnalytics,
-    Fingerprint,
-    CalendarStats,
-    User,
     Settings,
     Logout,
     SwitchHorizontal,
+    Login,
 } from 'tabler-icons-react';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -44,13 +42,14 @@ interface NavbarLinkProps {
     label: string;
     active?: boolean;
     onClick?(): void;
+    linkTo: string;
 }
 
-function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
+function NavbarLink({ icon: Icon, label, active, onClick, linkTo }: NavbarLinkProps,) {
     const { classes, cx } = useStyles();
     return (
-        <Tooltip label={label} position="right" withArrow transitionDuration={0}>
-            <UnstyledButton onClick={onClick} className={cx(classes.link, { [classes.active]: active })}>
+        <Tooltip label={label} position="right" withArrow transitionDuration={0} >
+            <UnstyledButton onClick={onClick} className={cx(classes.link, { [classes.active]: active })} component={Link} to={linkTo}>
                 <Icon />
             </UnstyledButton>
         </Tooltip>
@@ -58,17 +57,13 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 }
 
 const mockdata = [
-    { icon: Home2, label: 'Home' },
-    { icon: Gauge, label: 'Dashboard' },
-    { icon: DeviceDesktopAnalytics, label: 'Analytics' },
-    { icon: CalendarStats, label: 'Releases' },
-    { icon: User, label: 'Account' },
-    { icon: Fingerprint, label: 'Security' },
-    { icon: Settings, label: 'Settings' },
+    { icon: Home2, label: 'Home', linkTo: '/' },
+    { icon: DeviceDesktopAnalytics, label: 'Graph', linkTo: '/graph-view' },
+    { icon: Settings, label: 'Settings', linkTo: '/settings' },
 ];
 
 export function NavbarMinimal() {
-    const [active, setActive] = useState(2);
+    const [active, setActive] = useState(0);
 
     const links = mockdata.map((link, index) => (
         <NavbarLink
@@ -88,8 +83,9 @@ export function NavbarMinimal() {
             </Navbar.Section>
             <Navbar.Section>
                 <Group direction="column" align="center" spacing={0}>
-                    <NavbarLink icon={SwitchHorizontal} label="Change account" />
-                    <NavbarLink icon={Logout} label="Logout" />
+                    <NavbarLink icon={Login} label="Login" linkTo="/login" />
+                    <NavbarLink icon={SwitchHorizontal} label="Change account" linkTo={'/change-account'} />
+                    <NavbarLink icon={Logout} label="Logout" linkTo={'/logout'} />
                 </Group>
             </Navbar.Section>
         </Navbar>
