@@ -1,10 +1,13 @@
 import MainDashboard from './Pages/Index';
-// require('dotenv').config();
-// console.log(process.env)
+import { Routes, Route } from 'react-router-dom';
+import GraphPage from './Pages/GraphPage';
 function App() {
   return (
     <div className="App">
-      <MainDashboard />
+      <Routes>
+        <Route path="/" element={<MainDashboard />} />
+        <Route path="/graph-view" element={<GraphPage />} />
+      </Routes>
     </div>
   );
 }
