@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { AppShell, Grid } from '@mantine/core'
-// components
-import CardGraph from "../components/Graph";
+// // components
 import { HeaderSearch } from "../components/Header";
 import { NavbarMinimal } from "../components/Navbar";
 
 export default function GraphPage() {
-    const [twentyTimestamp, settwentyTimestamp] = useState(null);
-    const [twentyRoomHumidity, setTwentyRoomHumidity] = useState(null);
-    const [twentyRoomTemperature, setTwentyRoomTemperature] = useState(null);
-    const [twentyPercentageSoilSensor1, setTwentyPercentageSoilSensor1] = useState(null);
-    const [twentyPercentageSoilSensor2, setTwentyPercentageSoilSensor2] = useState(null);
+    // const [twentyTimestamp, settwentyTimestamp] = useState(null);
+    // const [twentyRoomHumidity, setTwentyRoomHumidity] = useState(null);
+    // const [twentyRoomTemperature, setTwentyRoomTemperature] = useState(null);
+    // const [twentyPercentageSoilSensor1, setTwentyPercentageSoilSensor1] = useState(null);
+    // const [twentyPercentageSoilSensor2, setTwentyPercentageSoilSensor2] = useState(null);
     useEffect(() => { })
     return (
         <>
