@@ -68,24 +68,28 @@ export default function GraphPage() {
                 <Grid>
                     <Grid.Col xs={6}>
                         <CardGraph
+                            name={'Room Temperature'}
                             dataFromDatabase={twentyRoomTemperature}
                             dataTimestamp={twentyTimestamp}
                         />
                     </Grid.Col>
                     <Grid.Col xs={6}>
                         <CardGraph
+                            name={'Room Humidity'}
                             dataFromDatabase={twentyRoomHumidity}
                             dataTimestamp={twentyTimestamp}
                         />
                     </Grid.Col>
                     <Grid.Col xs={6}>
                         <CardGraph
+                            name={'Soil Moisture Percentage 1'}
                             dataFromDatabase={twentyPercentageSoilSensor1}
                             dataTimestamp={twentyTimestamp}
                         />
                     </Grid.Col>
                     <Grid.Col xs={6}>
                         <CardGraph
+                            name={'Soil Moisture Percentage 2'}
                             dataFromDatabase={twentyPercentageSoilSensor2}
                             dataTimestamp={twentyTimestamp}
                         />
