@@ -1,4 +1,4 @@
-import { Card } from "@mantine/core";
+import { Card, Text } from "@mantine/core";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -64,6 +64,7 @@ function CardGraph(
     {
         dataFromDatabase,
         dataTimestamp,
+        name
     }
 ) {
     // const theme = useMantineTheme();
@@ -93,6 +94,7 @@ function CardGraph(
     }
     return (
         <Card>
+            <Text variant="h6">Graph {name}</Text>
             <Line data={Data} options={graphOptions} />
         </Card>
     )
