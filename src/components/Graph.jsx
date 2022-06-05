@@ -21,44 +21,62 @@ ChartJS.register(
     Legend
 )
 
-const colors = {
-    gray: {
-        100: "#f6f9fc",
-        200: "#e9ecef",
-        300: "#dee2e6",
-        400: "#ced4da",
-        500: "#adb5bd",
-        600: "#8898aa",
-        700: "#525f7f",
-        800: "#32325d",
-        900: "#212529",
-    },
-    theme: {
-        default: "#172b4d",
-        primary: "#5e72e4",
-        secondary: "#f4f5f7",
-        info: "#11cdef",
-        success: "#2dce89",
-        danger: "#f5365c",
-        warning: "#fb6340",
-    },
-    black: "#12263F",
-    white: "#FFFFFF",
-    transparent: "transparent",
-
-}
 
 const graphOptions = {
+    plugins: {
+        legend: {
+            display: false,
+        },
+    },
     responsive: true,
     maintainAspectRatio: true,
-    legend: {
-        display: false,
-    },
     tooltips: {
-        enabled: true,
         mode: "index",
         intersect: false,
-    }
+        enabled: false
+    },
+    scales: {
+        y: {
+            grid: {
+                drawBorder: false,
+                display: true,
+                drawOnChartArea: true,
+                drawTicks: false,
+                borderDash: [5, 5]
+            },
+            ticks: {
+                display: true,
+                padding: 10,
+                color: '#b2b9bf',
+                font: {
+                    size: 11,
+                    family: "Open Sans",
+                    style: 'normal',
+                    lineHeight: 2
+                },
+            }
+        },
+        x: {
+            grid: {
+                drawBorder: false,
+                display: false,
+                drawOnChartArea: false,
+                drawTicks: false,
+                borderDash: [5, 5]
+            },
+            ticks: {
+                display: true,
+                color: '#b2b9bf',
+                padding: 20,
+                font: {
+                    size: 11,
+                    family: "Open Sans",
+                    style: 'normal',
+                    lineHeight: 2
+                },
+            }
+        },
+    },
 }
 function CardGraph(
     {
@@ -67,12 +85,7 @@ function CardGraph(
         name
     }
 ) {
-    // const theme = useMantineTheme();
 
-    // // const secondaryColor = theme.colorScheme === 'dark'
-    // //     ? theme.colors.dark[1]
-    // //     : theme.colors.gray[7];
-    // changing timestamp to hours and minutes from timestamp list
     const dataTimestampHour = dataTimestamp?.map((item) => {
         const date = new Date(item);
         const hours = date.getHours();
@@ -86,14 +99,18 @@ function CardGraph(
         labels: dataTimestampHour,
         datasets: [{
             data: dataFromDatabase,
+            pointRadius: 1,
             tension: 0.4,
-            borderWidth: 4,
-            borderColor: colors.theme["primary"],
-            backgroundColor: colors.transparent,
+            borderWidth: 3,
+            borderColor: "#cb0c9f",
+            backgroundColor: 'rgba(203,12,159,0.2)',
+            fill: true,
+            maxBarThickness: 6
         }],
     }
     return (
-        <Card>
+        <Card shadow="sm" p="lg"
+        >
             <Text variant="h6">Graph {name}</Text>
             <Line data={Data} options={graphOptions} />
         </Card>
