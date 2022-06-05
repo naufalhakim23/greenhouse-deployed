@@ -14,6 +14,8 @@ export default function Settings() {
   const handleClickStatus = () => {
     writeStatus(1);
   };
+  //eslint-disable-next-line
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   return (
     <AppShell
       styles={{}}
@@ -23,7 +25,9 @@ export default function Settings() {
       navbar={<NavbarMinimal />}
       header={<HeaderSearch />}
     >
-      <Grid>
+        {
+            isAuthenticated ? (
+                <Grid>
         <Grid.Col xs={3}>
           <CardInput
             image={
@@ -100,6 +104,9 @@ export default function Settings() {
           />
           </Grid.Col>
       </Grid>
+            ) : <div>You are not authenticated</div>
+        }
+      
     </AppShell>
   );
 }
