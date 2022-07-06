@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { AppShell, Grid, Input, TextInput } from "@mantine/core";
+import { AppShell, Grid, TextInput } from "@mantine/core";
 import { NavbarMinimal } from "../components/Navbar";
 import { HeaderSearch } from "../components/Header";
-import CardInput from "../components/Card";
 import { db } from "../Firebase/Firebase";
-import { ref, update, onValue, limitToLast, query } from "firebase/database";
+import { ref, update, onValue } from "firebase/database";
 import { Card, Text, Group, Button } from "@mantine/core";
 function writeStatus(status: number) {
   update(ref(db, "node/interface/"), {
@@ -30,7 +29,7 @@ export default function Settings() {
       writeStatus(0);
     }
   };
-  //eslint-disable-next-line
+
   const stepperHandleChange = (event: any) => {
     event.preventDefault();
     update(ref(db, "node/interface/"), {
@@ -52,6 +51,7 @@ export default function Settings() {
   useEffect(() => {
     getDataInterfaceFirebase();
   }, []);
+  //eslint-disable-next-line
   const [isAuthenticated, setIsAuthenticated] = React.useState(true);
   return (
     <AppShell
