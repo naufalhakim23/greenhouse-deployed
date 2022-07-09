@@ -15,6 +15,7 @@ export default function Settings() {
   const [stepperTime, setStepperTime] = React.useState(0);
   const [stepRotation, setStepRotation] = React.useState(0);
   const [updateTime, setUpdateTime] = React.useState(0);
+  const [minimumLevel, setMinimumLevel] = React.useState(0);
   const getDataInterfaceFirebase = () => {
     const dataRTDB = ref(db, "node/interface/");
     onValue(dataRTDB, (snapshot) => {
@@ -46,6 +47,12 @@ export default function Settings() {
     e.preventDefault();
     update(ref(db, "node/interface/"), {
       updateTime: updateTime,
+    });
+  };
+  const minimumLevelHandleChange = (e: any) => {
+    e.preventDefault();
+    update(ref(db, "node/interface/"), {
+      minimumSoilLevel: minimumLevel,
     });
   };
   useEffect(() => {
@@ -92,6 +99,41 @@ export default function Settings() {
               >
                 Activate Irrigation
               </Button>
+            </Card>
+          </Grid.Col>
+          <Grid.Col xs={3}>
+            <Card withBorder p="xl" radius="md">
+              <Card.Section
+                sx={{
+                  backgroundImage: `url(https://images.unsplash.com/photo-1579567761406-4684ee0c75b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80)`,
+                  height: 140,
+                }}
+              />
+              <Text align="center" size="lg" weight={500} mt="sm">
+                Minimum Soil Moisture Level
+              </Text>
+              <Text align="center" size="sm" color="dimmed">
+                Soil Moisture Level: {data.minimumSoilLevel} %RH
+              </Text>
+              <form onSubmit={minimumLevelHandleChange}>
+                <TextInput
+                  label={"Time to Update"}
+                  placeholder={`${data.minimumSoilLevel} %RH`}
+                  onChange={(e: any) => {
+                    setMinimumLevel(parseInt(e.target.value));
+                  }}
+                />
+                <Button
+                  fullWidth
+                  radius="md"
+                  mt="xl"
+                  size="md"
+                  color={"dark"}
+                  type="submit"
+                >
+                  Change minimum level
+                </Button>
+              </form>
             </Card>
           </Grid.Col>
           <Grid.Col xs={3}>
