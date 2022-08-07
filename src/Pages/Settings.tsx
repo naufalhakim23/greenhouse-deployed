@@ -5,6 +5,7 @@ import { HeaderSearch } from "../components/Header";
 import { db } from "../Firebase/Firebase";
 import { ref, update, onValue } from "firebase/database";
 import { Card, Text, Group, Button } from "@mantine/core";
+import { getPrediction } from "../api/apiDatabase";
 function writeStatus(status: number) {
   update(ref(db, "node/interface/"), {
     status: status,
@@ -16,6 +17,11 @@ export default function Settings() {
   const [stepRotation, setStepRotation] = React.useState(0);
   const [updateTime, setUpdateTime] = React.useState(0);
   const [minimumLevel, setMinimumLevel] = React.useState(0);
+  const [dataPrediction, setDataPrediction] = React.useState({
+    statusPrediction: 0,
+    percentagePrediction: 0,
+    dnnActivation: 0,
+  });
   const getDataInterfaceFirebase = () => {
     const dataRTDB = ref(db, "node/interface/");
     onValue(dataRTDB, (snapshot) => {
@@ -23,6 +29,7 @@ export default function Settings() {
     });
   };
   let stepToDegree = (data.step * 1.8).toString();
+
   const handleClickStatus = () => {
     if (data.status === 0) {
       writeStatus(1);
@@ -30,7 +37,17 @@ export default function Settings() {
       writeStatus(0);
     }
   };
-
+  const handleSubmitPrediction = () => {
+    if (data?.dnnActivation === 0) {
+      update(ref(db, "node/interface/"), {
+        dnnActivation: 1,
+      });
+    } else {
+      update(ref(db, "node/interface/"), {
+        dnnActivation: 0,
+      });
+    }
+  };
   const stepperHandleChange = (event: any) => {
     event.preventDefault();
     update(ref(db, "node/interface/"), {
@@ -57,6 +74,9 @@ export default function Settings() {
   };
   useEffect(() => {
     getDataInterfaceFirebase();
+    getPrediction().then((res) => {
+      setDataPrediction(res);
+    });
   }, []);
   //eslint-disable-next-line
   const [isAuthenticated, setIsAuthenticated] = React.useState(true);
@@ -98,6 +118,44 @@ export default function Settings() {
                 onClick={handleClickStatus}
               >
                 Activate Irrigation
+              </Button>
+            </Card>
+          </Grid.Col>
+          <Grid.Col xs={3}>
+            <Card withBorder p="xl" radius="md">
+              <Card.Section
+                sx={{
+                  backgroundImage: `url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)`,
+                  height: 140,
+                }}
+              />
+              <Text align="center" size="lg" weight={500} mt="sm">
+                Water Irrigation System using DNN
+              </Text>
+              <Text align="center">
+                Prediction Status Right now:
+                <Text size="md" color="dimmed">
+                  {Math.round(dataPrediction?.percentagePrediction * 100)}%{" "}
+                  <br />
+                  {dataPrediction?.statusPrediction === 1
+                    ? "Need to Activate Stepper Motor"
+                    : "Deactivated"}
+                  <br />
+                  {data?.dnnActivation === 1
+                    ? "DNN Activated"
+                    : "DNN Deactivated"}
+                </Text>
+              </Text>
+              <Group mt="md" position="center" spacing={30}></Group>
+              <Button
+                fullWidth
+                radius="md"
+                mt="xl"
+                size="md"
+                color={"dark"}
+                onClick={handleSubmitPrediction}
+              >
+                Turn on DNN
               </Button>
             </Card>
           </Grid.Col>
