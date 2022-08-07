@@ -6,6 +6,7 @@ import { StatsGrid } from "../components/Status";
 // interaction with the API
 import { db } from "../Firebase/Firebase";
 import { ref, onValue, limitToLast, query } from "firebase/database";
+import { getPrediction } from "../api/apiDatabase";
 
 function MainDashboard() {
     const [dataInterface, setDataInterface] = useState({
@@ -25,7 +26,7 @@ function MainDashboard() {
         status: 0,
         week: 0,
     });
-
+    const [dataPrediction, setDataPrediction] = useState(null)
 
     const theme = useMantineTheme();
 
@@ -53,6 +54,10 @@ function MainDashboard() {
     useEffect(() => {
         getDataInterfaceFirebase();
         getDataComparator();
+        getPrediction().then((res) => {
+            setDataPrediction(res)
+        }
+        );
     }, []);
     return (
         <>
@@ -117,6 +122,12 @@ function MainDashboard() {
                             title: "Time Last Retrieve",
                             icon: "temperature",
                             value: `${convertTimeStamp()}`,
+                            diff: 0,
+                        },
+                        {
+                            title: "Prediction Stepper Motor Activated",
+                            icon: "user",
+                            value: `${Math.round(dataPrediction?.percentagePrediction * 100)}%`,
                             diff: 0,
                         },
                     ]}
