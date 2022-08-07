@@ -155,7 +155,7 @@ export default function Settings() {
                 color={"dark"}
                 onClick={handleSubmitPrediction}
               >
-                Turn on DNN
+                Turn {data?.dnnActivation === 1 ? "off" : "on"} DNN Prediction
               </Button>
             </Card>
           </Grid.Col>
